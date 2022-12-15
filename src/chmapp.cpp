@@ -32,6 +32,10 @@
 #include <wx/stdpaths.h>
 #include <wxstringutils.h>
 
+#ifdef HAVE_WINDOWS
+#include <windows.h>
+#endif
+
 #ifdef __WXMAC__
 #include <ApplicationServices/ApplicationServices.h>
 #endif
@@ -161,6 +165,15 @@ bool CHMApp::OnInit()
 
 #if 1
 	wxSetAssertHandler(NULL);
+#endif
+
+#ifdef HAVE_WINDOWS
+	if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+	#if 0
+		freopen("CONOUT$", "w", stdout);
+		freopen("CONOUT$", "w", stderr);
+	#endif
+	}
 #endif
 
     _frame = new CHMFrame(wxT("xCHM v. ") wxT(VERSION), lastOpenedDir, wxPoint(xorig, yorig), wxSize(width, height),

@@ -99,11 +99,11 @@ void CHMListCtrl::FindBestMatch(const wxString& title)
     auto tl = title.length();
 
     for (decltype(sz) i = 0; i < sz; ++i) {
-        info.m_itemId = i;
-        GetItem(info);
+		wxString& key = _items[i]->_title;
 
-        if (!info.m_text.Left(tl).CmpNoCase(title)) {
-            EnsureVisible(i);
+        if (!key.Left(tl).CmpNoCase(title)) {
+			EnsureVisible(sz - 1);    // this will make the selected item display
+            EnsureVisible(i);         // at the top of the ListCtrl
             SetItemState(i, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
             break;
         }
@@ -132,7 +132,6 @@ wxString CHMListCtrl::OnGetItemText(long item, long column) const
     // Is this even possible? item == -1 or item > size - 1?
     if (column != 0 || item == -1L || item > static_cast<long>(_items.GetCount()) - 1)
         return wxT("");
-
     return _items[item]->_title;
 }
 

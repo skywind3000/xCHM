@@ -32,6 +32,12 @@
 #include <XmlRpc.h>
 #endif
 
+#if defined(_WIN32) || defined(WIN32) || defined(WIN64) || defined(_WIN64)
+#ifndef HAVE_WINDOWS
+#define HAVE_WINDOWS 1
+#endif
+#endif
+
 // Forward declaration.
 class CHMFrame;
 
