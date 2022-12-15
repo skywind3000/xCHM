@@ -159,6 +159,10 @@ bool CHMApp::OnInit()
     if (argc > 0)
         fullAppPath = getAppPath(argv[0], wxGetCwd());
 
+#if 1
+	wxSetAssertHandler(NULL);
+#endif
+
     _frame = new CHMFrame(wxT("xCHM v. ") wxT(VERSION), lastOpenedDir, wxPoint(xorig, yorig), wxSize(width, height),
                           normalFont, fixedFont, fontSize, sashPos, fullAppPath, loadTopics, loadIndex);
 
